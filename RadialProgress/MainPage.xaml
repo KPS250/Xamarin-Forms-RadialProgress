@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:RadialProgress" 
+             x:Class="RadialProgress.MainPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             Title="HAC Sync">
+
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="Center">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="6*" />
+        <RowDefinition Height="10*" />
+    </Grid.RowDefinitions>
+
+         <skia:SKCanvasView x:Name="canvas" 
+                            PaintSurface="OnCanvasViewPaintSurfaceAsync" 
+                            Grid.Row="0" 
+                            BackgroundColor="#ecf0f1"/>
+
+        
+         <StackLayout Orientation="Vertical" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White"  >
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="White" Padding="0,5,10,5">
+                 <Label Text="  Today"/>
+                 <Switch x:Name="sw_listToggle" IsToggled="{Binding Path=Monitored, Mode=TwoWay}" 
+                    Toggled="switchToggledAsync" />
+                <Label Text="Monthly"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" Spacing="0">
+            <ScrollView >
+            <ListView x:Name="lstView" IsVisible="false" BackgroundColor="White" RowHeight="50" HasUnevenRows = "true" HeightRequest="400" IsPullToRefreshEnabled="false"
+                      SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell IsEnabled="false" >
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="Center">
+                            <StackLayout Orientation="Horizontal" Padding="15,0,20,0" HorizontalOptions="FillAndExpand">
+                                <Image Source="{Binding activityImage}" />
+                                <Label Text = "{Binding activityName}" FontSize="18" HorizontalOptions="FillAndExpand" VerticalOptions="Center" XAlign="Start" Margin="25,0,0,0" />
+                                <Label Text = "{Binding activityMinutes}" FontSize="18" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" XAlign="End" MinimumWidthRequest="90" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+            </ScrollView>
+            </StackLayout>
+
+
+            <Slider x:Name="sweepAngleSlider"
+                   ValueChanged="sliderValueChanged"
+                   Minimum="0" Maximum="260"
+                   IsVisible="false"/>
+       </StackLayout>
+        </Grid>
+    
+</ContentPage>
