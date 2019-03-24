@@ -29,7 +29,8 @@ namespace RadialProgress
         }
 
         // Initializing the canvas & drawing over it
-        async Task OnCanvasViewPaintSurfaceAsync(object sender, SKPaintSurfaceEventArgs args1)
+        // Check here https://stackoverflow.com/questions/52893416/xamarin-forms-async-task-signature-return-type-of-eventhandler-doesnt-matc
+        async void OnCanvasViewPaintSurfaceAsync(object sender, SKPaintSurfaceEventArgs args1)
 
         {
             args = args1;
